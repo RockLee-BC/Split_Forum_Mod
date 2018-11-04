@@ -1,3 +1,7 @@
+v2.0 Beta 3.1 - November 3rd, 2018
+o No functionality change.
+o Updated documentation to point to new website.
+
 v2.0 Beta 3 - August 17th, 2018
 o Updated Spanish Latin translation for v2.0 series, courtsey of [url=https://www.simplemachines.org/community/index.php?action=profile;u=322597]Rock Lee[/url]!
 o Added code to visually group boards in different sub-forums in [b]ManageBoards.template.php[/b].
