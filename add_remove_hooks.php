@@ -21,6 +21,7 @@ $hook_functions = array(
 	'integrate_admin_include' => '$sourcedir/Subs-SplitForumAdminHooks.php',
 	'integrate_admin_areas' => 'SplitForum_Admin_Menu',
 	'integrate_load_permissions' => 'SplitForum_Permissions',
+	'integrate_pre_boardtree' => 'SplitForum_Pre_BoardTree',
 );
 
 // Adding or removing them?

@@ -228,4 +228,14 @@ function SplitForum_PreUpdate(&$config_vars)
 	}
 }
 
+function SplitForum_Pre_BoardTree(&$columns, &$params)
+{
+	global $context;
+	if (isset($context['splitforum_reqid']))
+	{
+		$columns[] = 'c.forumid';
+		$params[] = (int) $context['splitforum_reqid'];
+	}
+}
+
 ?>

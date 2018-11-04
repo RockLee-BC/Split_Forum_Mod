@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:Split_Forum</id>
-<version>1.38</version>
+<version>1.39</version>
 
 <!---------------------------------------------------------------------------->
 <!-- Source File Edits														-->
@@ -510,7 +510,6 @@
  * uses the modify_board sub-template of the ManageBoards template.
  * requires manage_boards permission.
  * also used to show the confirm deletion of category screen (sub-template confirm_board_delete).
-
  */
 function EditBoard()
 {
@@ -519,17 +518,27 @@ function EditBoard()
 
 	loadTemplate('ManageBoards');
 	require_once($sourcedir . '/Subs-Boards.php');
+	require_once($sourcedir . '/Subs-Editor.php');
 	getBoardTree();]]></search>
-		<add><![CDATA[redirectexit('action=admin;area=manageboards' . (!empty($_REQUEST['sub']) ? ';sub=' . $_REQUEST['sub'] : ''));
+		<add><![CDATA[redirectexit('action=admin;area=manageboards');
 }
 
-// Modify a specific board...
+/**
+ * Modify a specific board...
+ * screen for editing and repositioning a board.
+ * called by ?action=admin;area=manageboards;sa=board
+ * uses the modify_board sub-template of the ManageBoards template.
+ * requires manage_boards permission.
+ * also used to show the confirm deletion of category screen (sub-template confirm_board_delete).
+ */
 function EditBoard()
 {
-	global $txt, $context, $cat_tree, $boards, $boardList, $sourcedir, $smcFunc, $modSettings, $forumid, $subforum_tree;
+	global $txt, $context, $cat_tree, $boards, $boardList;
+	global $sourcedir, $smcFunc, $modSettings, $forumid, $subforum_tree;
 
 	loadTemplate('ManageBoards');
 	require_once($sourcedir . '/Subs-Boards.php');
+	require_once($sourcedir . '/Subs-Editor.php');
 	getBoardTree( ($forumid == 0 ? -1 : $forumid) );]]></add>
 	</operation>
 	<operation>
@@ -628,13 +637,16 @@ function EditBoard()
 
 	loadTemplate('ManageBoards');
 	require_once($sourcedir . '/Subs-Boards.php');
+	require_once($sourcedir . '/Subs-Editor.php');
 	getBoardTree();]]></search>
 		<add><![CDATA[function EditCategory()
 {
-	global $txt, $context, $cat_tree, $boardList, $boards, $smcFunc, $sourcedir, $forumid, $subforum_tree;
+	global $txt, $context, $cat_tree, $boardList, $boards, $smcFunc, $sourcedir;
+	global $forumid, $subforum_tree;
 
 	loadTemplate('ManageBoards');
 	require_once($sourcedir . '/Subs-Boards.php');
+	require_once($sourcedir . '/Subs-Editor.php');
 	getBoardTree( ($forumid == 0 ? -1 : $forumid) );]]></add>
 	</operation>
 	<operation>
@@ -731,20 +743,6 @@ function EditBoard()
 
 			$boardOptions['move_to'] = $_POST['placement' . $cat];
 			$boardOptions['target_board'] = (int) $_POST['board_order' . $cat];]]></add>
-	</operation>
-	<operation>
-		<search position="replace"><![CDATA[$context['children'] = $boards[$_REQUEST['boardid']]['tree']['children'];
-		foreach ($context['board_order'] as $board)
-			if ($board['is_child'] == false && $board['selected'] == false)
-				$context['can_move_children'] = true;]]></search>
-		<add><![CDATA[if (isset($boards[$_REQUEST['boardid']]['tree']['children']))
-			$context['children'] = $boards[$_REQUEST['boardid']]['tree']['children'];
-		else
-			$context['children'] = array();
-		foreach ($context['board_order'] as $cat => $list)
-			foreach ($list as $board)
-				if ($board['is_child'] == false && $board['selected'] == false)
-					$context['can_move_children'] = true;]]></add>
 	</operation>
 </file>
 <file name="$sourcedir/ManageCalendar.php">
@@ -1111,8 +1109,8 @@ function EditBoard()
 </file>
 <file name="$sourcedir/ManageServer.php">
 	<operation>
-		<search position="replace"><![CDATA[array('cachedir', $txt['cachedir'], 'file', 'text', 36, 'cache_cachedir'),]]></search>
-		<add><![CDATA[array('cachedir', $txt['cachedir'], 'file', 'text', 36),
+		<search position="before"><![CDATA[array('mbname', $txt['admin_title'], 'file', 'text', 30),]]></search>
+		<add><![CDATA[
 		array('favicon', $txt['favicon'], 'file', 'text', 36),]]></add>
 	</operation>
 	<operation>
@@ -1196,20 +1194,6 @@ function EditBoard()
 	<operation>
 		<search position="before"><![CDATA[global $txt, $scripturl, $topic, $modSettings, $board]]></search>
 		<add><![CDATA[, $forumid]]></add>
-	</operation>
-	<operation>
-		<search position="replace"><![CDATA[FROM {db_prefix}calendar
-				WHERE id_event = {int:id_event}
-				LIMIT 1',
-				array(
-					'id_event' => $context['event']['id'],]]></search>
-		<add><![CDATA[FROM {db_prefix}calendar
-				WHERE id_event = {int:id_event}
-					AND forumid = {int:forumid}
-				LIMIT 1',
-				array(
-					'id_event' => $context['event']['id'],
-					'forumid' => (int) $forumid,]]></add>
 	</operation>
 	<operation>
 		<search position="before"><![CDATA[global $user_info, $board_info, $smcFunc]]></search>
@@ -1703,7 +1687,7 @@ function EditBoard()
 	global $cat_tree, $boards, $boardList, $smcFunc]]></search>
 		<add><![CDATA[function getBoardTree($reqid = 0)
 {
-	global $cat_tree, $boards, $boardList, $smcFunc, $forumid, $subforum_tree]]></add>
+	global $cat_tree, $boards, $boardList, $smcFunc, $forumid, $subforum_tree, $context]]></add>
 	</operation>
 	<operation>
 		<search position="replace"><![CDATA[// Getting all the board and category information you'd ever wanted.]]></search>
@@ -1732,18 +1716,13 @@ function EditBoard()
 		]]></add>
 	</operation>
 	<operation>
-		<search position="replace"><![CDATA[
-		FROM {db_prefix}categories AS c
-			LEFT JOIN {db_prefix}boards AS b ON (b.id_cat = c.id_cat)
-		ORDER BY c.cat_order, b.child_level, b.board_order',
-		array(]]></search>
-		<add><![CDATA[, c.forumid
-		FROM {db_prefix}categories AS c
-			LEFT JOIN {db_prefix}boards AS b ON (b.id_cat = c.id_cat)
-		'.($reqid <> -1 ? 'WHERE c.forumid = {int:forumid}' : '').'
-		ORDER BY c.forumid, c.cat_order, b.child_level, b.board_order',
-		array(
-			'forumid' => (int) $reqid,]]></add>
+		<search position="before"><![CDATA[$extraBoardParameters = array();]]></search>
+		<add><![CDATA[
+	$context['splitforum_reqid'] = $reqid;]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[WHERE {query_wanna_see_board}]]></search>
+		<add><![CDATA[WHERE {query_wanna_see_board}'.($reqid <> -1 ? ' AND c.forumid = {int:forumid}' : '').']]></add>
 	</operation>
 	<operation>
 		<search position="before"><![CDATA['can_collapse' => $row['can_collapse']]]></search>
@@ -1811,10 +1790,10 @@ function EditBoard()
 	<operation>
 		<search position="replace"><![CDATA[array(
 		$eventOptions['board'], $eventOptions['topic'], $eventOptions['title'], $eventOptions['member'],
-		$eventOptions['start_date'], $eventOptions['end_date'],]]></search>
+		$start_date, $end_date, $eventOptions['location'],]]></search>
 		<add><![CDATA[array(
 		$eventOptions['board'], $eventOptions['topic'], $eventOptions['title'], $eventOptions['member'],
-		$eventOptions['start_date'], $eventOptions['end_date'], $forumid,]]></add>
+		$start_date, $end_date, $eventOptions['location'], $forumid,]]></add>
 	</operation>
 	<operation>
 		<search position="before"><![CDATA[function modifyEvent($event_id, &$eventOptions)
@@ -1884,11 +1863,6 @@ function EditBoard()
 	}
 
 	]]></add>
-	</operation>
-	<operation>
-		<search position="before"><![CDATA[$boards[$row['id_board']] = array(]]></search>
-		<add><![CDATA[
-				'forumid' => $row['forumid'],]]></add>
 	</operation>
 </file>
 <file name="$sourcedir/Subs-Members.php">
@@ -1973,7 +1947,7 @@ echo '
 		<div class="cat_bar">
 			<h3 class="catbg">', $txt['boardsEdit'], '</h3>
 		</div>
-		<div class="windowbg2">';
+		<div class="windowbg2 noup">';
 
 	if (!empty($context['move_board']))
 		echo '
@@ -2039,7 +2013,9 @@ echo '
 		<search position="replace"><![CDATA[</div>';
 }
 
-// Template for editing/adding a category on the forum.
+/**
+ * Tempalte for editing/adding a category on the forum.
+ */
 function template_modify_category()
 {
 	global $context, $scripturl, $txt;
@@ -2067,7 +2043,9 @@ function template_modify_category()
 	</div></div>';
 }
 
-// Template for editing/adding a category on the forum.
+/**
+ * Tempalte for editing/adding a category on the forum.
+ */
 function template_modify_category()
 {
 	global $context, $scripturl, $txt, $subforum_tree, $forumid;

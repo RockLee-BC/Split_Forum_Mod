@@ -176,7 +176,7 @@ function remove_bad_aliases()
 	// Gather some basic board information together:
 	$result = $smcFunc['db_query']('', '
 		SELECT
-			IFNULL(b.id_board, 0) AS id_board, b.id_cat, c.forumid, b.alias_cat, b.alias_child
+			COALESCE(b.id_board, 0) AS id_board, b.id_cat, c.forumid, b.alias_cat, b.alias_child
 		FROM {db_prefix}categories AS c
 			LEFT JOIN {db_prefix}boards AS b ON (b.id_cat = c.id_cat)'
 	);

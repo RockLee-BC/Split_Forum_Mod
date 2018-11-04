@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:Split_Forum</id>
-<version>1.38</version>
+<version>1.39</version>
 
 <!---------------------------------------------------------------------------->
 <!-- Source File Edits														-->
@@ -710,20 +710,6 @@ function EditBoard()
 			$boardOptions['move_to'] = $_POST['placement' . $cat];
 			$boardOptions['target_board'] = (int) $_POST['board_order' . $cat];]]></add>
 	</operation>
-	<operation>
-		<search position="replace"><![CDATA[$context['children'] = $boards[$_REQUEST['boardid']]['tree']['children'];
-		foreach ($context['board_order'] as $board)
-			if ($board['is_child'] == false && $board['selected'] == false)
-				$context['can_move_children'] = true;]]></search>
-		<add><![CDATA[if (isset($boards[$_REQUEST['boardid']]['tree']['children']))
-			$context['children'] = $boards[$_REQUEST['boardid']]['tree']['children'];
-		else
-			$context['children'] = array();
-		foreach ($context['board_order'] as $cat => $list)
-			foreach ($list as $board)
-				if ($board['is_child'] == false && $board['selected'] == false)
-					$context['can_move_children'] = true;]]></add>
-	</operation>
 </file>
 <file name="$sourcedir/ManageCalendar.php">
 	<operation>
@@ -937,8 +923,8 @@ function EditBoard()
 </file>
 <file name="$sourcedir/ManageServer.php">
 	<operation>
-		<search position="replace"><![CDATA[array('cachedir', $txt['cachedir'], 'file', 'text', 36),]]></search>
-		<add><![CDATA[array('cachedir', $txt['cachedir'], 'file', 'text', 36),
+		<search position="before"><![CDATA[array('mbname', $txt['admin_title'], 'file', 'text', 30),]]></search>
+		<add><![CDATA[
 		array('favicon', $txt['favicon'], 'file', 'text', 36),]]></add>
 	</operation>
 	<operation>

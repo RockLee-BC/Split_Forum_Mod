@@ -5,7 +5,7 @@
 	<id>Dougiefresh:Split_Forum</id>
 	<name>Split Forum Mod</name>
 	<type>modification</type>
-	<version>1.38</version>
+	<version>1.39</version>
 	
 	<install for="2.0 - 2.0.99">
 		<readme parsebbc="true">readme.txt</readme>
@@ -46,7 +46,7 @@
 		<remove-file name="$imagesdir/empty.png" />
 	</uninstall>
 
-	<install for="2.1 Beta 1 - 2.1.99">
+	<install for="2.1 Beta 3 - 2.1.99">
 		<readme parsebbc="true">readme.txt</readme>
 		<code>add_remove_hooks.php</code>
 		<code>settings_install.php</code>
@@ -67,7 +67,7 @@
 		<require-file name="empty.png" destination="$imagesdir" />
 		<redirect timeout="5000" url="?action=admin;area=subforums;sa=postinstall" />
 	</install>
-	<uninstall for="2.1 Beta 2 - 2.1.99">
+	<uninstall for="2.1 Beta 3 - 2.1.99">
 		<code>add_remove_hooks.php</code>
 		<code>settings_uninstall.php</code>
 		<modification reverse="true">install_21x.xml</modification>
