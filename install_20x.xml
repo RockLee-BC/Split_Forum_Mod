@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:Split_Forum</id>
-<version>1.39</version>
+<version>1.40</version>
 
 <!---------------------------------------------------------------------------->
 <!-- Source File Edits														-->
@@ -588,6 +588,15 @@ function EditBoard()
 		if ($selected_cat != $cat && !empty($context['board_order'][$cat][0]['selected']))
 			$context['board_order'][$cat][0]['selected'] = true;
 	}]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[foreach ($context['board_order'] as $board)
+			if ($board['is_child'] == false && $board['selected'] == false)
+				$context['can_move_children'] = true;]]></search>
+		<add><![CDATA[foreach ($context['board_order'] as $cat)
+			foreach ($cat as $board)
+			if ($board['is_child'] == false && $board['selected'] == false)
+				$context['can_move_children'] = true;]]></add>
 	</operation>
 	<operation>
 		<search position="replace"><![CDATA[if (isset($_REQUEST['rid']) && $_REQUEST['rid'] == 'permissions')
