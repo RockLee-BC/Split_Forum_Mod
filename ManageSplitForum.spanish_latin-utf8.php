@@ -84,5 +84,14 @@ $txt['subforum_mod_update'] = 'Foro versión dividida Mod %s está disponible pa
 $txt['subforum_no_mod_update'] = 'Su instalación del Foro de Split Mod esta actualizada a la fecha!';
 
 $txt['subforum_no_categories'] = 'No hay categorías definidas';
+$txt['wrong_forum'] = 'El foro que ha especificado se encuentra en un foro diferente!';]]></add>
+
+//$txt['subforum_deny'] = 'Deny access to';
+//$txt['permissiongroup_access_subforums'] = 'Subforum Access';
+//$txt['subforum_settings_permission_access'] = 'Restrict subforum access using permissions?';
+//$txt['subforum_settings_permission_access_log'] = 'Log users who access restricted subforums?';
+//$txt['subforum_access_denied'] = 'Access to this subforum has been denied.';
+//$txt['wrong_forum'] = 'The board you specified is located on a different forum.';
+//$txt['subforum_error_bad_membergroup'] = 'You cannot add membergroups that are not associated with this subforum.';
 
 ?>

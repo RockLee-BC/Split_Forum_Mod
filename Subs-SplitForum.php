@@ -123,6 +123,9 @@ function add_subforum(&$row)
 	// Set the variable "subforum_tree" in the forum's Settings.php:
 	require_once($sourcedir.'/Subs-Admin.php');
 	updateSettingsFile(array('subforum_tree' => str_replace("\n", "", var_export($subforum_tree, true))));
+	
+	// Make sure all membergroups are copied over to the new subforum:
+	SplitForum_Populate($new_forumid, true, false, 1);
 }
 
 function delete_subforum($sub, $write_settings = true)
@@ -134,8 +137,12 @@ function delete_subforum($sub, $write_settings = true)
 	unset($subforum_tree[(int) $sub]);
 	if ($write_settings)
 	{
+		// Write settings to the forum's "Settings.php" file:
 		require_once($sourcedir.'/Subs-Admin.php');
 		updateSettingsFile(array('subforum_tree' => str_replace("\n", "", var_export($subforum_tree, true))));
+
+		// Make sure all membergroups are deleted for the specified subforum:
+		SplitForum_Populate($sub, false, true);
 	}
 }
 

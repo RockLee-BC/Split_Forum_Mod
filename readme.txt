@@ -1,6 +1,6 @@
 [hr]
-[center][color=red][size=16pt][b]SPLIT FORUM MOD v1.40[/b][/size][/color]
-[url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=3730]Link to Mod[/url]
+[center][color=red][size=16pt][b]SPLIT FORUM MOD v2.0[/b][/size][/color]
+[url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=https://custom.simplemachines.org/mods/index.php?mod=3730]Link to Mod[/url]
 [/center]
 [hr]
 
@@ -42,26 +42,26 @@ All recent posts, xml-based feeds, and other forum-related functionality works f
 o [b]integrate_subforum_subdomain[/b] - Hook for creating/deleting subdomains and/or domains
 
 [color=blue][b][size=12pt][u]Special Credits[/u][/size][/b][/color]
-o [url=http://www.simplemachines.org/community/index.php?action=profile;u=394494]Greygal[/url] made the mod compatible with [url=http://custom.simplemachines.org/mods/index.php?mod=3238]Event Registration for SMF2[/url] in 3 posts starting [url=http://www.simplemachines.org/community/index.php?topic=523055.msg3767088#msg3767088]here[/url]!  Thanks, greygal!!
+o [url=http://www.simplemachines.org/community/index.php?action=profile;u=394494]Greygal[/url] made the mod compatible with [url=https://custom.simplemachines.org/mods/index.php?mod=3238]Event Registration for SMF2[/url] in 3 posts starting [url=http://www.simplemachines.org/community/index.php?topic=523055.msg3767088#msg3767088]here[/url]!  Thanks, greygal!!
+o [url=https://www.simplemachines.org/community/index.php?action=profile;u=478373]KSRandom[/url] added control over user membergroups per subforum!
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
-This mod was tested on SMF 2.0.10, but should work on SMF 2.1 Beta 3, as well as SMF 2.0 and up.  SMF 2.1 Beta 1 and 2, as well as SMF 1.x, is not and will not be supported.
+This mod was tested on SMF 2.0.15, but should work on SMF 2.1 Beta 3, as well as SMF 2.0 and up.  SMF 2.1 Beta 1 and 2, as well as SMF 1.x, is not and will not be supported.
 
 These optional mods should be installed (if desired) prior to this mod's installation:
-o [url=http://custom.simplemachines.org/mods/index.php?mod=1024]Alias Boards v1.2+[/url]
-o [url=http://custom.simplemachines.org/mods/index.php?mod=636]Pretty URLs[/url]
-o [url=http://custom.simplemachines.org/mods/index.php?mod=1104]SimplePortal v2.3.6[/url]
-o [url=http://custom.simplemachines.org/mods/index.php?mod=1461]ezPortal[/url]
-o [url=http://custom.simplemachines.org/mods/index.php?mod=3708]Like Posts[/url]
-
-[color=blue][b][size=12pt][u]Upgrade from Previous Version(s)[/u][/size][/b][/color]
-Upgrade is possible from previous version of this mod to this version.  This means [b]1.27[/b] -> [b]1.28[/b], but not [b]1.26[/b] -> [b]1.28[/b]!
+o [url=https://custom.simplemachines.org/mods/index.php?mod=1024]Alias Boards v1.2+[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=636]Pretty URLs[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=1104]SimplePortal v2.3.6[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=1461]ezPortal[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=3708]Like Posts[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=3469]MySQLi[/url]
+o [url=https://custom.simplemachines.org/mods/index.php?mod=3238]Event Registration for SMF2[/url]
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=17.msg328#msg328]XPtsp.com[/url].
 
 [color=blue][b][size=12pt][u]License[/u][/size][/b][/color]
-[quote]Copyright (c) 2013 - 2017, Douglas Orend, Kirk Sykora
+[quote]Copyright (c) 2013 - 2018, Douglas Orend, Kirk Sykora
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

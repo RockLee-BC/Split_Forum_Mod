@@ -4,6 +4,32 @@ o Subforum usage with Dream Portal
 o Subforum usage with Tiny Portal
 o Subforum usage with PortaMx
 o Themes that are restricted to a single subforum
-o Additional permissions for "subforum admins" and the like
-o Theme settings restricted to members registered on a subforum
+o Membergroups that are restricted to a single subforum
 o Language settings restricted to members registered on a subforum
+o Global (all-subforums) categories
+o Global (all-subforums) calendar events
+
+SimplePortal membergroup-related files to modify
+======================================================================
+---- D:\Website\clean\Sources\PortalBlocks.php
+				LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = CASE WHEN m.id_group = {int:reg_group_id} THEN m.id_post_group ELSE m.id_group END)
+
+---- D:\Website\clean\Sources\Subs-Portal.php
+			mem.id_member, mem.member_name, mem.real_name, mem.id_group,
+			LEFT JOIN {db_prefix}membergroups AS pg ON (pg.id_group = mem.id_post_group)
+			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = mem.id_group)
+				LEFT JOIN {db_prefix}membergroups AS pg ON (pg.id_group = mem.id_post_group)
+				LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = mem.id_group)
+
+---- D:\Website\clean\Sources\Subs-PortalAdmin.php
+		'normal' => 'id_group != 3',
+		'moderator' => 'id_group != 1 AND id_group != 3',
+		'master' => 'min_posts = -1 AND id_group != 3',
+		SELECT group_name, id_group, min_posts
+		ORDER BY min_posts, id_group != {int:global_moderator}, group_name',
+		$context[$contextName][(int) $row['id_group']] = array(
+			'id' => $row['id_group'],
+			'checked' => $checked || in_array($row['id_group'], $selectedGroups),
+		SELECT group_name, id_group, min_posts
+		WHERE id_group != {int:moderator_group}
+		$groups[(int) $row['id_group']] = trim($row['group_name']);

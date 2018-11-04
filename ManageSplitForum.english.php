@@ -92,5 +92,7 @@ $txt['permissiongroup_access_subforums'] = 'Subforum Access';
 $txt['subforum_settings_permission_access'] = 'Restrict subforum access using permissions?';
 $txt['subforum_settings_permission_access_log'] = 'Log users who access restricted subforums?';
 $txt['subforum_access_denied'] = 'Access to this subforum has been denied.';
+$txt['wrong_forum'] = 'The board you specified is located on a different forum.';
+$txt['subforum_error_bad_membergroup'] = 'You cannot add membergroups that are not associated with this subforum.';
 
 ?>

@@ -48,6 +48,7 @@ function ManageSplitForums()
 		'delete' => ($forumid == 0 ? 'DeleteSubForum' : 'EditSubForum'),
 		'settings' => ($forumid == 0 ? 'SubForumSettings' : 'EditSubForum'),
 		'postinstall' => 'PostInstall',
+		'membergroups' => 'Membergroups',
 	);
 
 	// Make sure that the subforum number is a valid one to edit:
@@ -58,10 +59,11 @@ function ManageSplitForums()
 
 function PostInstall($sub)
 {
-	global $sourcedir, $txt;
+	global $sourcedir, $txt, $modSettings;
 	
 	require_once($sourcedir.'/Subs-Admin.php');
-	updateSettings(array('subforum_sister_sites_title' => $txt['subforum_sister_sites']));
+	if (!isset($modSettings['subforum_sister_sites_title']))
+		updateSettings(array('subforum_sister_sites_title' => $txt['subforum_sister_sites']));
 	redirectexit('action=admin;area=subforums');
 }
 
@@ -88,14 +90,7 @@ Function EditSubForum($sub)
 		redirectexit('action=admin;area=subforums');
 
 	// Is Simple Portal installed?  We can manipulate those tables if necessary:
-	$request = $smcFunc['db_query']('', 'show tables like "%sp_blocks"', array());
-	while ($row = $smcFunc['db_fetch_row']($request))
-	{
-		if (str_replace('sp_blocks', '', $row[0]) <> $db_prefix)
-			continue;
-		$context['sp_blocks_enabled'] = file_exists($sourcedir . '/PortalAdminBlocks.php');
-	}
-	$smcFunc['db_free_result']($request);
+	$context['sp_blocks_enabled'] = file_exists($sourcedir . '/PortalAdminBlocks.php');
 
 	// Get the names of all the categories held in the database:
 	$context['sfm_categories'] = get_categories();
@@ -167,7 +162,7 @@ Function EditSubForum($sub)
 			array('select', 'subforum_modify_sp_portal', explode('|', $txt['sp_portal_mode_options']),
 				'javascript' => 'onchange="SetPortalType(this.options[this.selectedIndex].value); return false;"'),
 			array('text', 'subforum_modify_sp_standalone',
-				'javascript' => ($subforum_tree[$sub]['sp_portal'] != 3 ? ' disabled="disabled"' : ''),
+				'javascript' => (empty($subforum_tree[$sub]['sp_portal']) || $subforum_tree[$sub]['sp_portal'] != 3 ? ' disabled="disabled"' : ''),
 			),
 			array('select', 'subforum_modify_sp_blocks', $options),
 		));
@@ -545,9 +540,6 @@ function SubForumSettings($return_config = false)
 		'',
 		array('check', 'subforum_settings_register_at_primary'),
 		array('check', 'subforum_settings_show_who_in_subforum'),
-		'',
-		array('check', 'subforum_settings_permission_access'),
-		array('check', 'subforum_settings_permission_access_log'),
 	);
 	if ($return_config)
 		return $config_vars;
@@ -573,5 +565,27 @@ function SubForumSettings($return_config = false)
 	// Prepare the settings...
 	prepareDBSettingContext($config_vars);
 }
+
+function SubForumSettings($return_config = false)
+{
+	global $forumid, $context, $txt, $modSettings, $scripturl, $smcFunc, $sourcedir, $forumid;
+
+	// Here and the board settings...
+	isAllowedTo('admin_forum');
+	$config_vars = array(
+		array('check', 'subforum_settings_permission_access'),
+		array('check', 'subforum_settings_permission_access_log'),
+		'',
+	);
+	if ($return_config)
+		return $config_vars;
+
+	// Doing a save?
+	if (isset($_GET['save']))
+	{
+		checkSession();
+		saveDBSettings($config_vars);
+		redirectexit('action=admin;area=subforums;sa=settings');
+	}
 
 ?>

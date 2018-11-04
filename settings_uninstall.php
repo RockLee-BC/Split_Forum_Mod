@@ -18,6 +18,7 @@ $request = $smcFunc['db_query']('', '
 	array()
 );
 $order = 0;
+$cat = array();
 while ($row = $smcFunc['db_fetch_assoc']($request))
 	$cat[$row['id_cat']] = $order++;
 	

@@ -101,6 +101,11 @@ function SplitForum_PreLoad()
 	foreach ($subforum_tree as $subforum)
 		$urls[] = $subforum['boardurl'];
 	$modSettings['forum_alias_urls'] = implode(',', array_unique($urls));
+	
+	// Populate the "primary membergroups" table with necessary info if not flagged:
+	$postinstall = isset($_REQUEST['action']) && $_REQUEST['action'] == 'admin' && isset($_REQUEST['area']) && $_REQUEST['area'] == 'subforums' && isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'postinstall';
+	if (empty($modSettings['sfm_populated']) || $postinstall)
+		SplitForum_Populate();
 }
 
 function SplitForum_EzPortal_Init()
@@ -123,6 +128,7 @@ function SplitForum_EzPortal_Init()
 function SplitForum_Actions(&$actions)
 {
 	$actions['unreadglobal'] = array('Recent.php', 'UnreadTopics');
+	$actions['sfm_populate'] = array('Subs-SplitForumHooks.php', 'SplitForum_Populate');
 }
 
 /**********************************************************************************
@@ -236,6 +242,82 @@ function SplitForum_Pre_BoardTree(&$columns, &$params)
 		$columns[] = 'c.forumid';
 		$params[] = (int) $context['splitforum_reqid'];
 	}
+}
+
+/**********************************************************************************
+* Function dealing with "Primary Membergroup" table population:
+**********************************************************************************/
+function SplitForum_Populate($subforums = false, $insert = true, $delete = false, $groups = false)
+{
+	global $modSettings, $smcFunc, $subforum_tree, $txt;
+
+	// We need an array of integer subforum IDs.  If "false" is specified, do this for all subforums!
+	$all = false;
+	if (!is_array($subforums) && $subforums === false)
+	{
+		if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'sfm_populate' && isset($_REQUEST['subforums']))
+			$subforums = explode(',', $_REQUEST['subforums']);
+		else
+			$subforums = array_keys($subforum_tree);
+	}
+	if (!is_array($subforums))
+		$subforums = array($subforums);
+	foreach ($subforums as $id => $subforum)
+		$subforums[$id] = (int) $subforum;
+
+	// If groups is an array, make sure all group IDs are integers!!!
+	if (is_array($groups))
+	{
+		foreach ($groups as $id => $group)
+			$groups[(int) $group] = (int) $group;
+		unset($groups[0]);
+	}
+		
+	// Are we deleting subforum membergroup entries?
+	if ($delete || isset($_REQUEST['sfm_delete']))
+	{
+		// Are we deleting all membergroups?  Or just for a particular subforum?
+		if (count(array_diff($subforums, array_keys($subforum_tree))) == 0)
+			$smcFunc['db_query']('', 'TRUNCATE TABLE {db_prefix}primary_membergroups');
+		else
+			$smcFunc['db_query']('', '
+				DELETE FROM {db_prefix}primary_membergroups
+				WHERE forumid IN ({array_int:subforums})' . (is_array($groups) ? '
+					AND id_group IN ({array_int:groups})' : ''),
+				array(
+					'subforums' => $subforums,
+					'groups' => $groups,
+				)
+			);
+	}
+	
+	// Are we inserting data?  If so, insert non-zero "id_group" for each member
+	// for each subforum ID, ignoring pre-existing entries in the table:
+	if ($insert && !isset($_REQUEST['sfm_no_insert']))
+	{
+		foreach ($subforums as $subforum)
+		{
+			$smcFunc['db_query']('', '
+				INSERT IGNORE INTO {db_prefix}primary_membergroups (forumid, id_member, id_group)
+				SELECT {int:subforum} AS forumid, mem.id_member, mem.id_group
+				FROM {db_prefix}members mem' . (is_array($groups) ? '
+				WHERE id_group IN ({array_int:groups})' : ''),
+				array(
+					'subforum' => $subforum,
+					'groups' => $groups,
+				),
+				null /* connection */,
+				true /* allowSubSelects */
+			);
+		}
+	}
+	
+	// Flag this operation as completed:
+	updateSettings(array('sfm_populated' => true));
+	
+	// Is this being called as an action?  If so, redirect to subforum management area:
+	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'sfm_populate')
+		redirectexit('action=admin;area=subforums;done');
 }
 
 ?>

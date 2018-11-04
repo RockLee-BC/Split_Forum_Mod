@@ -1,3 +1,9 @@
+v2.0 - February 10th, 2018
+o Thanks to [url=https://www.simplemachines.org/community/index.php?action=profile;u=478373]KSRandom[/url], control over user membergroups per subforum has been added!
+o Complete rewrite of the mod, now includes original line numbers and function names in proper order!
+o Modified registration agreement code to provide additional fallback situations.
+o Support for SMF 2.1 Beta 3 has been suspended for now.
+
 v1.40 - January 3rd, 2018
 o Fixed code that produced two undefined array element errors.
 

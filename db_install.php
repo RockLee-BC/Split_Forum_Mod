@@ -47,9 +47,72 @@ $smcFunc['db_add_column'](
 );
 
 //==============================================================================
+// Alter membergroups table to allow per-subforum membergroups:
+//==============================================================================
+$smcFunc['db_add_column'](
+	'{db_prefix}membergroups', 
+	array(
+		'name' => 'forumid', 
+		'size' => 4, 
+		'type' => 'int', 
+		'null' => false, 
+		'default' => -1
+	)
+);
+$smcFunc['db_query']('', '
+	ALTER TABLE {db_prefix}smf_membergroups
+	CHANGE "forumid" "forumid" INT(4) NOT NULL DEFAULT "-1";'
+);
+
+//==============================================================================
+// Build the Primary Membergroups table:
+//==============================================================================
+$columns = array(
+	array(
+		'name' => 'forumid',
+		'type' => 'int',
+		'size' => 4,
+		'unsigned' => false,
+		'null' => false, 
+	),
+	array(
+		'name' => 'id_member',
+		'type' => 'mediumint',
+		'size' => 8,
+		'unsigned' => false,
+		'null' => false, 
+	),
+	array(
+		'name' => 'id_group',
+		'type' => 'int',
+		'size' => 8,
+		'unsigned' => false,
+		'null' => false, 
+		'default' => 0,
+	),
+);
+$smcFunc['db_create_table']('{db_prefix}primary_membergroups', $columns, array(), array(), 'update_remove');
+
+// We also need to create a 2-column index on the "forumid" and "id_member"
+// columns, jumping through hoops along the way.... :[  Have to do it this way,
+// since SMF doesn't appear to be able create 2-column indexes correctly....
+$indexes = $smcFunc['db_list_indexes']("{db_prefix}primary_membergroups", true);
+if (!isset($indexes['forum_member']))
+{
+	if (isset($modSettings['disableQueryCheck']))
+		$tmp = $modSettings['disableQueryCheck'];
+	$modSettings['disableQueryCheck'] = true;
+	$smcFunc['db_query']('', 'ALTER TABLE {db_prefix}primary_membergroups ADD UNIQUE `forum_member` (`forumid`, `id_member`);');
+	if (isset($tmp))
+		$modSettings['disableQueryCheck'] = $tmp;
+}
+
+//==============================================================================
 // If Simple Portal is installed, add support for subforums within the DB:
 //==============================================================================
-$tblchk = $smcFunc['db_query']('', 'show tables like "' . $db_prefix . 'sp_blocks"', array());
+if ($SSI_INSTALL)
+	$smcFunc['db_query']('', 'USE '. (substr($db_name, 0, 1) == '`' ? $db_name : '`' . $db_name . '`'));
+$tblchk = $smcFunc['db_query']('', 'SHOW TABLES LIKE "%sp_blocks"');
 while ($row = $smcFunc['db_fetch_row']($tblchk))
 {
 	if (str_replace('sp_blocks', '', $row[0]) <> $db_prefix)
@@ -72,7 +135,7 @@ $smcFunc['db_free_result']($tblchk);
 //==============================================================================
 // If EZ Portal is installed, add support for subforums within the DB:
 //==============================================================================
-$tblchk = $smcFunc['db_query']('', 'show tables like "' . $db_prefix . 'ezp_block_layout"', array());
+$tblchk = $smcFunc['db_query']('', 'SHOW TABLES LIKE "%ezp_block_layout"');
 while ($row = $smcFunc['db_fetch_row']($tblchk))
 {
 	if (str_replace('ezp_block_layout', '', $row[0]) <> $db_prefix)

@@ -5,7 +5,7 @@
 	<id>Dougiefresh:Split_Forum</id>
 	<name>Split Forum Mod</name>
 	<type>modification</type>
-	<version>1.40</version>
+	<version>2.0</version>
 	
 	<install for="2.0 - 2.0.99">
 		<readme parsebbc="true">readme.txt</readme>
@@ -14,8 +14,6 @@
 		<database>db_install.php</database>
 		<modification>install_20x.xml</modification>
 		<modification>install_third_party.xml</modification>
-		<modification>language_english.xml</modification>
-		<modification>language_spanish_latin.xml</modification>
 		<require-file name="ManageSplitForum.php" destination="$sourcedir" />
 		<require-file name="Subs-SplitForum.php" destination="$sourcedir" />
 		<require-file name="Subs-SplitForumHooks.php" destination="$sourcedir" />
@@ -33,7 +31,6 @@
 		<code>settings_uninstall.php</code>
 		<modification reverse="true">install_20x.xml</modification>
 		<modification reverse="true">install_third_party.xml</modification>
-		<modification reverse="true">language_english.xml</modification>
 		<remove-file name="$sourcedir/ManageSplitForum.php" />
 		<remove-file name="$sourcedir/Subs-SplitForum.php" />
 		<remove-file name="$sourcedir/Subs-SplitForumAdminHooks.php" />
@@ -46,6 +43,7 @@
 		<remove-file name="$imagesdir/empty.png" />
 	</uninstall>
 
+<!------------------------- Support Suspended for Beta 1 --------------------------------
 	<install for="2.1 Beta 3 - 2.1.99">
 		<readme parsebbc="true">readme.txt</readme>
 		<code>add_remove_hooks.php</code>
@@ -53,8 +51,6 @@
 		<database>db_install.php</database>
 		<modification>install_21x.xml</modification>
 		<modification>install_third_party.xml</modification>
-		<modification>language_english.xml</modification>
-		<modification>language_spanish_latin.xml</modification>
 		<require-file name="ManageSplitForum.php" destination="$sourcedir" />
 		<require-file name="Subs-SplitForum.php" destination="$sourcedir" />
 		<require-file name="Subs-SplitForumHooks.php" destination="$sourcedir" />
@@ -72,7 +68,6 @@
 		<code>settings_uninstall.php</code>
 		<modification reverse="true">install_21x.xml</modification>
 		<modification reverse="true">install_third_party.xml</modification>
-		<modification reverse="true">language_english.xml</modification>
 		<remove-file name="$sourcedir/ManageSplitForum.php" />
 		<remove-file name="$sourcedir/Subs-SplitForum.php" />
 		<remove-file name="$sourcedir/Subs-SplitForumAdminHooks.php" />
@@ -84,4 +79,5 @@
 		<remove-file name="$boarddir/Themes/default/languages/ManageSplitForum.spanish_latin-utf8.php" />
 		<remove-file name="$imagesdir/empty.png" />
 	</uninstall>
+-->
 </package-info>
