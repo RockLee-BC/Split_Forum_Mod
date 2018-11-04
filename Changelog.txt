@@ -1,3 +1,9 @@
+v2.0 Beta 3 - August 17th, 2018
+o Updated Spanish Latin translation for v2.0 series, courtsey of [url=https://www.simplemachines.org/community/index.php?action=profile;u=322597]Rock Lee[/url]!
+o Added code to visually group boards in different sub-forums in [b]ManageBoards.template.php[/b].
+o Fixed code that displays the board list in [b]ManageBoards.template.php[/b], based on [url=https://www.simplemachines.org/community/index.php?action=profile;u=592984]Crashingmail[/ur]'s bug report.
+o Fixed URL building code in [b]Sources/Load.php[/b], based on [url=https://www.simplemachines.org/community/index.php?action=profile;u=464967]Kladji[/url]'s bug report.
+
 v2.0 Beta 2 - February 11th, 2018
 o Made several changes to the database installer to avoid "Hacking attempt" messages.
 o Made changes to permissions, membergroups and news code to get them functioning right.

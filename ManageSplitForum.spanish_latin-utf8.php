@@ -8,11 +8,13 @@
 * This program is distributed in the hope that it is and will be useful, but      *
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY    *
 * or FITNESS FOR A PARTICULAR PURPOSE.                                            *
-**********************************************************************************/
+***********************************************************************************
+* Spanish translation by Rock Lee (https://www.bombercode.org) Copyright 2014-2018
+***********************************************************************************/
 if (!defined('SMF')) 
 	die('Hacking attempt...');
 
-$txt['favicon'] = 'URL del icono de su página web';
+$txt['favicon'] = 'Enlace del icono de su página web';
 $txt['sp-subforums'] = 'Subforo';
 
 $txt['forumid_title'] = 'Foro Primario';
@@ -31,7 +33,7 @@ $txt['subforums_list_prefix'] = 'Subforo';
 
 $txt['subforum_modify_header'] = 'Configuración del subforo';
 $txt['subforum_modify_boardname'] = 'Nombre del subforo/foro:';
-$txt['subforum_modify_boardurl'] = 'Dirección Web subforo (URL):';
+$txt['subforum_modify_boardurl'] = 'Dirección Web del subforo (Enlace):';
 $txt['subforum_modify_boardurl_small'] = 'Dirección completa debe incluir "http://"';
 $txt['subforum_modify_favicon'] = 'Dirección del icono de su página web para el subforo:';
 $txt['subforum_modify_subtheme'] = 'Tema por defecto del subforo:';
@@ -59,7 +61,7 @@ $txt['subforum_modify_ez_homepage_title'] = 'Título de la página de inicio EzP
 $txt['subforum_modify_ez_shoutbox'] = '¿Habilitar EzPortal ShoutBox(chat) en el subforo?';
 $txt['subforum_modify_ez_blocks'] = $txt['subforum_modify_sp_blocks'];
 
-$txt['subforum_server_url'] = 'URL del servidor web raíz de los nuevos subforos';
+$txt['subforum_server_url'] = 'Enlace del servidor web raíz de los nuevos subforos';
 $txt['subforum_server_root'] = 'Ruta del servidor raíz para nuevos subforos';
 $txt['subforum_redirect_wrong'] = 'Redirigir foro para corregir subforo en lugar de un mensaje de error';
 $txt['subforum_sister_sites_title'] = 'Sitios amigos del título del menú';
@@ -84,14 +86,14 @@ $txt['subforum_mod_update'] = 'Foro versión dividida Mod %s está disponible pa
 $txt['subforum_no_mod_update'] = 'Su instalación del Foro de Split Mod esta actualizada a la fecha!';
 
 $txt['subforum_no_categories'] = 'No hay categorías definidas';
-$txt['wrong_forum'] = 'El foro que ha especificado se encuentra en un foro diferente!';]]></add>
+$txt['wrong_forum'] = 'El foro que ha especificado se encuentra en un foro diferente!';
 
-//$txt['subforum_deny'] = 'Deny access to';
-//$txt['permissiongroup_access_subforums'] = 'Subforum Access';
-//$txt['subforum_settings_permission_access'] = 'Restrict subforum access using permissions?';
-//$txt['subforum_settings_permission_access_log'] = 'Log users who access restricted subforums?';
-//$txt['subforum_access_denied'] = 'Access to this subforum has been denied.';
-//$txt['wrong_forum'] = 'The board you specified is located on a different forum.';
-//$txt['subforum_error_bad_membergroup'] = 'You cannot add membergroups that are not associated with this subforum.';
+$txt['subforum_deny'] = 'Denegar el acceso a';
+$txt['permissiongroup_access_subforums'] = 'Acceso a subforos';
+$txt['subforum_settings_permission_access'] = '¿Restringir el acceso a subforos usando permisos?';
+$txt['subforum_settings_permission_access_log'] = '¿Miembros de registro que acceden a subforos restringidos?';
+$txt['subforum_access_denied'] = 'El acceso a este subforo ha sido denegado.';
+$txt['wrong_forum'] = 'El foro que especificó está ubicada en un foro diferente.';
+$txt['subforum_error_bad_membergroup'] = 'No puede agregar grupos de miembros que no están asociados con este subforo.';
 
 ?>

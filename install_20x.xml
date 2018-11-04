@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:Split_Forum</id>
-<version>2.0</version>
+<version>2.0 Beta 3</version>
 
 <!---------------------------------------------------------------------------->
 <!-- Source File Edits														-->
@@ -453,7 +453,7 @@
 					$sub = (isset($subforum_tree[(int) $row['forumid']]) ? $subforum_tree[(int) $row['forumid']] : 0);
 					if (!empty($modSettings['subforum_redirect_wrong']) && (!empty($sub)))
 					{
-						$url = (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off' ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+						$url = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 						redirectexit(str_replace($boardurl, $sub['boardurl'], $url));
 					}
 
@@ -4242,10 +4242,13 @@
 	}]]></add>
 	</operation>
 	<operation>	<!-- line 42 -->
-		<search position="before"><![CDATA[// Loop through every category, listing the boards in each as we go.
+		<search position="replace"><![CDATA[// Loop through every category, listing the boards in each as we go.
 	foreach ($context['categories'] as $category)
 	{]]></search>
-		<add><![CDATA[
+		<add><![CDATA[// Loop through every category, listing the boards in each as we go.
+	$last_forumid = -1;
+	foreach ($context['categories'] as $category)
+	{
 		// If this is a different subforum, place it in a div:
 		if ($last_forumid <> $category['forumid'])
 		{
@@ -4536,25 +4539,51 @@
 						</dt>
 						<dd>';
 
-	// The first select box gives the user the option to position it before, after or as a child of another board.
-	echo '
-							<select id="order" name="placement" onchange="this.form.board_order.disabled = this.options[this.selectedIndex].value == \'\';">
-								', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '', '
-								<option value="after">' . $txt['mboards_order_after'] . '...</option>
-								<option value="child">' . $txt['mboards_order_child_of'] . '...</option>
-								<option value="before">' . $txt['mboards_order_before'] . '...</option>
-							</select>';
-
-	// The second select box lists all the boards in the category.
-	echo '
-							<select id="board_order" name="board_order" ', isset($context['board']['is_new']) ? '' : 'disabled="disabled"', '>
-								', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '';
-	foreach ($context['board_order'] as $order)
+		// The first select box gives the user the option to position it before, after or as a child of another board.
 		echo '
-								<option', $order['selected'] ? ' selected="selected"' : '', ' value="', $order['id'], '">', $order['name'], '</option>';
-	echo '
-							</select>
-						</dd>';
+								<select id="order" name="placement" onchange="this.form.board_order.disabled = this.options[this.selectedIndex].value == \'\';">
+									', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '', '
+									<option value="after">' . $txt['mboards_order_after'] . '...</option>
+									<option value="child">' . $txt['mboards_order_child_of'] . '...</option>
+									<option value="before">' . $txt['mboards_order_before'] . '...</option>
+								</select>';
+
+		// The second select box lists all the boards in the category.
+		echo '
+								<select id="board_order" name="board_order" ', isset($context['board']['is_new']) ? '' : 'disabled="disabled"', '>
+									', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '';
+		// If this isn't the only board in this category let the user choose where the board is to live.
+		foreach ($context['board_order'] as $cat => $board_order)
+		{
+			if ((isset($context['board']['is_new']) && count($board_order) > 0) || count($board_order) > 1)
+			{
+				echo '
+							<dt id="cat_txt', $cat, '"', ($cat != $context['board']['category'] ? ' style="display: none;"' : '') . '>
+								<strong>', $txt['order'], ':</strong>
+							</dt>
+							<dd id="cat_opt', $cat, '"', ($cat != $context['board']['category'] ? ' style="display: none;"' : '') . '>';
+
+				// The first select box gives the user the option to position it before, after or as a child of another board.
+				echo '
+								<select id="order', $cat, '" name="placement', $cat, '" onchange="this.form.board_order', $cat, '.disabled = this.options[this.selectedIndex].value == \'\';">
+									', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '', '
+									<option value="after">' . $txt['mboards_order_after'] . '...</option>
+									<option value="child">' . $txt['mboards_order_child_of'] . '...</option>
+									<option value="before">' . $txt['mboards_order_before'] . '...</option>
+								</select>';
+
+				// The second select box lists all the boards in the category.
+				echo '
+								<select id="board_order', $cat, '" name="board_order', $cat, '" ', isset($context['board']['is_new']) ? '' : 'disabled="disabled"', '>
+									', !isset($context['board']['is_new']) ? '<option value="">(' . $txt['mboards_unchanged'] . ')</option>' : '';
+				foreach ($board_order as $order)
+					echo '
+									<option', $order['selected'] ? ' selected="selected"' : '', ' value="', $order['id'], '">', $order['name'], '</option>';
+				echo '
+								</select>
+							</dd>';
+			}
+		}]]></add>
 	}]]></add>
 	</operation>
 	<operation>	<!-- line 318 -->
