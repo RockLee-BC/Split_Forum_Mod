@@ -12,6 +12,11 @@ elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then t
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as SMF\'s SSI.php.');
 db_extend('packages');
 
+// We need to disable query checks for this next operation:
+if (isset($modSettings['disableQueryCheck']))
+	$tmp = $modSettings['disableQueryCheck'];
+$modSettings['disableQueryCheck'] = true;
+
 //==============================================================================
 // Insert column into the necessary tables to associate with a subforum:
 //==============================================================================
@@ -49,6 +54,7 @@ $smcFunc['db_add_column'](
 //==============================================================================
 // Alter membergroups table to allow per-subforum membergroups:
 //==============================================================================
+$indexes = $smcFunc['db_list_indexes']("{db_prefix}membergroups", true);
 $smcFunc['db_add_column'](
 	'{db_prefix}membergroups', 
 	array(
@@ -59,10 +65,13 @@ $smcFunc['db_add_column'](
 		'default' => -1
 	)
 );
-$smcFunc['db_query']('', '
-	ALTER TABLE {db_prefix}smf_membergroups
-	CHANGE "forumid" "forumid" INT(4) NOT NULL DEFAULT "-1";'
-);
+if (isset($indexes['forum_member']))
+{
+	$smcFunc['db_query']('', '
+		ALTER TABLE {db_prefix}membergroups
+		CHANGE "forumid" "forumid" INT(4) NOT NULL DEFAULT "-1";'
+	);
+}
 
 //==============================================================================
 // Build the Primary Membergroups table:
@@ -98,14 +107,14 @@ $smcFunc['db_create_table']('{db_prefix}primary_membergroups', $columns, array()
 // since SMF doesn't appear to be able create 2-column indexes correctly....
 $indexes = $smcFunc['db_list_indexes']("{db_prefix}primary_membergroups", true);
 if (!isset($indexes['forum_member']))
-{
-	if (isset($modSettings['disableQueryCheck']))
-		$tmp = $modSettings['disableQueryCheck'];
-	$modSettings['disableQueryCheck'] = true;
-	$smcFunc['db_query']('', 'ALTER TABLE {db_prefix}primary_membergroups ADD UNIQUE `forum_member` (`forumid`, `id_member`);');
-	if (isset($tmp))
-		$modSettings['disableQueryCheck'] = $tmp;
-}
+	$smcFunc['db_query']('', '
+		ALTER TABLE {db_prefix}primary_membergroups 
+		ADD UNIQUE forum_member (forumid, id_member);');
+
+// Populate each subforum's membergroup data using "id_group" field from members table:
+if (!function_exists('SplitForum_Populate'))
+	require_once(dirname(__FILE__) . '/Subs-SplitForumHooks.php');
+SplitForum_Populate();
 
 //==============================================================================
 // If Simple Portal is installed, add support for subforums within the DB:
@@ -154,6 +163,10 @@ while ($row = $smcFunc['db_fetch_row']($tblchk))
 	$smcFunc['db_remove_column']('{db_prefix}ezp_block_layout', 'forums');
 }
 $smcFunc['db_free_result']($tblchk);
+
+// Restore query checks to previous status:
+if (isset($tmp))
+	$modSettings['disableQueryCheck'] = $tmp;
 
 // Echo that we are done if necessary:
 if ($SSI_INSTALL)

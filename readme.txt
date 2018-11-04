@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]SPLIT FORUM MOD v2.0[/b][/size][/color]
+[center][color=red][size=16pt][b]SPLIT FORUM MOD v2.0 BETA 2[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=https://custom.simplemachines.org/mods/index.php?mod=3730]Link to Mod[/url]
 [/center]
 [hr]
@@ -46,7 +46,7 @@ o [url=http://www.simplemachines.org/community/index.php?action=profile;u=394494
 o [url=https://www.simplemachines.org/community/index.php?action=profile;u=478373]KSRandom[/url] added control over user membergroups per subforum!
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
-This mod was tested on SMF 2.0.15, but should work on SMF 2.1 Beta 3, as well as SMF 2.0 and up.  SMF 2.1 Beta 1 and 2, as well as SMF 1.x, is not and will not be supported.
+This mod was tested on SMF 2.0.15, [s]but should work on SMF 2.1 Beta 3[/s], as well as SMF 2.0 and up.  SMF 2.1 Beta 1 and 2, as well as SMF 1.x, is not and will not be supported.
 
 These optional mods should be installed (if desired) prior to this mod's installation:
 o [url=https://custom.simplemachines.org/mods/index.php?mod=1024]Alias Boards v1.2+[/url]
@@ -54,7 +54,6 @@ o [url=https://custom.simplemachines.org/mods/index.php?mod=636]Pretty URLs[/url
 o [url=https://custom.simplemachines.org/mods/index.php?mod=1104]SimplePortal v2.3.6[/url]
 o [url=https://custom.simplemachines.org/mods/index.php?mod=1461]ezPortal[/url]
 o [url=https://custom.simplemachines.org/mods/index.php?mod=3708]Like Posts[/url]
-o [url=https://custom.simplemachines.org/mods/index.php?mod=3469]MySQLi[/url]
 o [url=https://custom.simplemachines.org/mods/index.php?mod=3238]Event Registration for SMF2[/url]
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]

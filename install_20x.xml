@@ -12,7 +12,7 @@
 		<search position="after"><![CDATA[// Check if the user should be disallowed access.]]></search>
 		<add><![CDATA[// Make sure that the user has access to this subforum:
 	SplitForum_DenyAccess();
-	
+
 	]]></add>
 	</operation>
 </file>
@@ -135,7 +135,7 @@
 					'global_forumid' => -1,
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getGroups function -->
 	<operation>
 		<search position="before"><![CDATA[global $smcFunc, $txt, $scripturl, $user_info, $settings]]></search>
@@ -197,7 +197,7 @@
 					'global_forumid' => -1,
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getGroupCount function -->
 	<operation>	<!-- line 359 -->
 		<search position="before"><![CDATA[function list_getGroupCount()
@@ -224,7 +224,7 @@
 			'global_forumid' => -1,
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- MembergroupMembers function -->
 	<operation>	<!-- line 384 -->
 		<search position="before"><![CDATA[global $txt, $scripturl, $context, $modSettings, $sourcedir, $user_info, $settings, $smcFunc]]></search>
@@ -297,7 +297,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- GroupRequests function -->
 	<operation>	<!-- line 626 -->
 		<search position="before"><![CDATA[global $txt, $context, $scripturl, $user_info, $sourcedir, $smcFunc, $modSettings, $language]]></search>
@@ -332,7 +332,7 @@
 					'global_forumid' => -1,
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getGroupRequests function -->
 	<operation>	<!-- line 936 -->
 		<search position="before"><![CDATA[function list_getGroupRequests($start, $items_per_page, $sort, $where, $where_parameters)
@@ -386,7 +386,7 @@
 		<add><![CDATA[
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- loadBoard function -->
 	<operation>	<!-- line 583 -->
 		<search position="before"><![CDATA[global $txt, $scripturl, $context, $modSettings]]></search>
@@ -471,7 +471,7 @@
 			if (!empty($temp_board))
 				$row = array_merge($row, $temp_board, array('redirect' => ''));]]></add>
 	</operation>
-	
+
 	<!-- loadMemberData function -->
 	<operation>	<!-- line 995 -->
 		<search position="before"><![CDATA[global $user_profile, $modSettings, $board_info, $smcFunc]]></search>
@@ -543,7 +543,7 @@
 		<add><![CDATA[
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- loadTheme function -->
 	<operation>	<!-- line 1363 -->
 		<search position="before"><![CDATA[global $context, $settings, $options, $sourcedir, $ssi_theme, $smcFunc]]></search>
@@ -678,7 +678,7 @@
 		<add><![CDATA[
 	$context['seperate_aliases'] = true;]]></add>
 	</operation>
-	
+
 	<!-- ManageBoardsMain function -->
 	<operation>	<!-- line 118 -->
 		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boards, $boardList, $scripturl, $sourcedir, $txt]]></search>
@@ -693,7 +693,7 @@
 		<add><![CDATA['forumid' => $tree['node']['forumid'],
 			]]></add>
 	</operation>
-	
+
 	<!-- EditCategory function -->
 	<operation>	<!-- line 235 -->
 		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boardList, $boards, $sourcedir]]></search>
@@ -774,7 +774,7 @@
 		<add><![CDATA[redirectexit('action=admin;area=manageboards' . (!empty($_REQUEST['sub']) ? ';sub=' . $_REQUEST['sub'] : ''));
 }]]></add>
 	</operation>
-	
+
 	<!-- EditBoard function -->
 	<operation>	<!-- line 366 -->
 		<search position="before"><![CDATA[global $txt, $context, $cat_tree, $boards, $boardList, $sourcedir, $smcFunc, $modSettings]]></search>
@@ -898,7 +898,7 @@
 	foreach ($cat_tree as $catID => $tree)
 		$context['categories'][$tree['node']['forumid']][] = array(]]></add>
 	</operation>
-	
+
 	<!-- EditBoard2 function -->
 	<operation>	<!-- line 566 -->
 		<search position="before"><![CDATA[global $txt, $sourcedir, $modSettings, $smcFunc, $context]]></search>
@@ -927,14 +927,14 @@
 		<add><![CDATA[$boardOptions = array();
 		$sub = (isset($_POST['new_forum']) ? $_POST['new_forum'] : $forumid);
 		$cat = (isset($_POST['new_cat' . $sub]) ? $_POST['new_cat' . $sub] : '');
-		
+
 		// Move this board to a new category?
 		if (!empty($cat))
 		{
 			$boardOptions['move_to'] = 'bottom';
 			$boardOptions['target_category'] = $cat;
-		}			
-			
+		}
+
 		// Change the boardorder of this board?
 		$cat = (!empty($cat) ? $cat : (isset($_POST['current_cat']) ? $_POST['current_cat'] : ''));
 		if (!empty($_POST['placement' . $cat]) && !empty($_POST['board_order' . $cat]))
@@ -956,7 +956,7 @@
 	else
 		redirectexit('action=admin;area=manageboards' . (!empty($_REQUEST['sub']) ? ';sub=' . $_REQUEST['sub'] : ''));]]></add>
 	</operation>
-	
+
 	<!-- EditBoardSettings function -->
 	<operation>	<!-- line 733 -->
 		<search position="before"><![CDATA[global $context, $txt, $sourcedir, $modSettings, $scripturl, $smcFunc]]></search>
@@ -999,7 +999,7 @@
 		<add><![CDATA[// Restrict user to editing current subforum ONLY if we are in a subforum:
 	if (!empty($forumid))
 		$subforum_tree = array($forumid => $subforum_tree[$forumid]);
-	
+
 	]]></add>
 	</operation>
 	<operation>	<!-- line 372 -->
@@ -1036,7 +1036,7 @@
 		<add><![CDATA[,
 			'forumid' => $row['forumid']]]></add>
 	</operation>
-	
+
 	<!-- EditMembergroup function -->
 	<operation>	<!-- line 615 -->
 		<search position="before"><![CDATA[function EditMembergroup()
@@ -1049,7 +1049,7 @@
 		<add><![CDATA[// Restrict user to editing current subforum ONLY if we are in a subforum:
 	if (!empty($forumid))
 		$subforum_tree = array($forumid => $subforum_tree[$forumid]);
-	
+
 	]]></add>
 	</operation>
 	<operation>	<!-- line 625 -->
@@ -1145,7 +1145,7 @@
 		<search position="replace"><![CDATA[$mg_query_parts[] = 'mem.id_group IN ({array_int:group_check})';]]></search>
 		<add><![CDATA[$mg_query_parts[] = 'pm.id_group IN ({array_int:group_check})';]]></add>
 	</operation>
-	
+
 	<!-- SearchMembers function -->
 	<operation>	<!-- line 638 -->
 		<search position="before"><![CDATA[global $context, $txt, $smcFunc]]></search>
@@ -1188,7 +1188,7 @@
 		<search position="replace"><![CDATA[foreach (explode("\n", $modSettings['news']) as $id => $line)]]></search>
 		<add><![CDATA[foreach (explode("\n", $modSettings['news' . $tmp]) as $id => $line)]]></add>
 	</operation>
-	
+
 	<!-- SelectMailingMembers function -->
 	<operation>	<!-- line 175 -->
 		<search position="before"><![CDATA[global $txt, $context, $modSettings, $smcFunc]]></search>
@@ -1223,6 +1223,15 @@
 			array(
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
+	<operation>	<!-- line 256 -->
+		<search position="after"><![CDATA[// Also do those who have it as an additional membergroup - this ones more yucky...]]></search>
+		<add><![CDATA[// We need to disable query checks for this next operation:
+		if (isset($modSettings['disableQueryCheck']))
+			$tmp = $modSettings['disableQueryCheck'];
+		$modSettings['disableQueryCheck'] = true;
+
+		]]></add>
+	</operation>
 	<operation>	<!-- line 260 -->
 		<search position="replace"><![CDATA[INNER JOIN {db_prefix}members AS mem ON (mem.additional_groups != {string:blank_string}
 					AND mem.id_group != mg.id_group
@@ -1245,11 +1254,19 @@
 				'normal_group_list' => $normalGroups,
 				'blank_string' => '',
 				'forumid' => (int) $forumid,
-			),
-			null /* connection */,
-			true /* allowSubSelects */]]></add>
+			)]]></add>
 	</operation>
-	
+	<operation>	<!-- line 278 -->
+		<search position="after"><![CDATA[	}
+
+	// Any moderators?]]></search>
+		<add><![CDATA[
+		// Restore query checks to previous status:
+		if (isset($tmp))
+			$modSettings['disableQueryCheck'] = $tmp;
+]]></add>
+	</operation>
+
 	<!-- SendMailing function -->
 	<operation>	<!-- line 642 -->
 		<search position="replace"><![CDATA[$queryBuild[] = 'mem.id_group = {int:group_' . $group . '}';]]></search>
@@ -1279,7 +1296,7 @@
 			'global_forumid' => -1,
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ModifyUserSubscription function -->
 	<operation> <!-- line 869 -->
 		<search position="before"><![CDATA[function ModifyUserSubscription()
@@ -1301,7 +1318,7 @@
 				array(
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- reapplySubscriptions function -->
 	<operation>	<!-- line 1199 -->
 		<search position="before"><![CDATA[function reapplySubscriptions($users)
@@ -1346,7 +1363,7 @@
 			LIMIT 1',
 			array(]]></add>
 	</operation>
-	
+
 	<!-- addSubscription function -->
 	<operation>	<!-- line 1276 -->
 		<search position="before"><![CDATA[function addSubscription($id_subscribe, $id_member, $renewal = 0, $forceStartTime = 0, $forceEndTime = 0)
@@ -1394,7 +1411,7 @@
 		)
 	);]]></add>
 	</operation>
-	
+
 	<!-- removeSubscription function -->
 	<operation>	<!-- line 1487 -->
 		<search position="before"><![CDATA[function removeSubscription($id_subscribe, $id_member, $delete = false)
@@ -1482,6 +1499,15 @@
 			WHERE id_group IN ({array_int:normal_group_list})
 			GROUP BY id_group',]]></add>
 	</operation>
+	<operation>	<!-- line 293 -->
+		<search position="after"><![CDATA[// This one is slower, but it's okay... careful not to count twice!]]></search>
+		<add><![CDATA[// We need to disable query checks for this next operation:
+		if (isset($modSettings['disableQueryCheck']))
+			$tmp = $modSettings['disableQueryCheck'];
+		$modSettings['disableQueryCheck'] = true;
+
+		]]></add>
+	</operation>
 	<operation>	<!-- line 294 -->
 		<search position="replace"><![CDATA[$query = $smcFunc['db_query']('', '
 			SELECT mg.id_group, COUNT(*) AS num_members
@@ -1511,12 +1537,20 @@
 				'normal_group_list' => $normalGroups,
 				'blank_string' => '',
 				'forumid' => (int) $forumid,
-			),
-			null /* connection */,
-			true /* allowSubSelects */
+			)
 		);]]></add>
 	</operation>
-	
+	<operation>	<!-- line 315 -->
+		<search position="after"><![CDATA[	}
+
+	foreach ($context['groups'] as $id => $data)]]></search>
+		<add><![CDATA[
+		// Restore query checks to previous status:
+		if (isset($tmp))
+			$modSettings['disableQueryCheck'] = $tmp;
+]]></add>
+	</operation>
+
 	<!-- PermissionByBoard function -->
 	<operation>	<!-- line 394 -->
 		<search position="before"><![CDATA[global $context, $modSettings, $txt, $smcFunc, $sourcedir, $cat_tree, $boardList, $boards]]></search>
@@ -1543,7 +1577,7 @@
 		<search position="replace"><![CDATA[$context['categories'][$catid]['boards'][$boardid] = array(]]></search>
 		<add><![CDATA[$context['categories'][$id][$catid]['boards'][$boardid] = array(]]></add>
 	</operation>
-	
+
 	<!-- GeneralPermissionSettings function -->
 	<operation>	<!-- line 990 -->
 		<search position="before"><![CDATA[global $context, $modSettings, $sourcedir, $txt, $scripturl, $smcFunc]]></search>
@@ -1564,7 +1598,7 @@
 				)
 			);]]></add>
 	</operation>
-	
+
 	<!-- init_inline_permissions function -->
 	<operation>	<!-- line 1702 -->
 		<search position="before"><![CDATA[function init_inline_permissions($permissions, $excluded_groups = array())
@@ -1593,7 +1627,7 @@
 			'global_forumid' => -1,
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ModifyPostModeration function -->
 	<operation>	<!-- line 2206 -->
 		<search position="before"><![CDATA[global $context, $txt, $smcFunc, $modSettings]]></search>
@@ -1634,7 +1668,7 @@
 				'global_forumid' => -1,
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- EditAgreement function -->
 	<operation>	<!-- line 184 -->
 		<search position="before"><![CDATA[global $txt, $boarddir, $context, $modSettings, $smcFunc, $settings]]></search>
@@ -1661,7 +1695,7 @@
 		<add><![CDATA[$context['agreement'] = file_exists($boarddir . '/' . $agree . $context['current_agreement'] . '.txt') ? htmlspecialchars(file_get_contents($boarddir . '/' . $agree . $context['current_agreement'] . '.txt')) : '';
 	$context['warning'] = is_writable($boarddir . '/' . $agree . $context['current_agreement'] . '.txt') ? '' : $txt['agreement_not_writable'];]]></add>
 	</operation>
-	
+
 	<!-- ModifyRegistrationSettings function -->
 	<operation>	<!-- line 266 -->
 		<search position="before"><![CDATA[global $txt, $context, $scripturl, $modSettings, $sourcedir]]></search>
@@ -1704,7 +1738,7 @@
 		<add><![CDATA[
 		array('favicon', $txt['favicon'], 'file', 'text', 36),]]></add>
 	</operation>
-	
+
 	<!-- saveSettings function -->
 	<operation>	<!-- line 1972 -->
 		<search position="before"><![CDATA['boarddir', 'sourcedir', 'cachedir',]]></search>
@@ -1758,7 +1792,7 @@
 			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = CASE WHEN pm.id_group = {int:regular_id_group} THEN mem.id_post_group ELSE pm.id_group END)' : '') . '
 		WHERE mem.is_activated = {int:is_activated}' . (empty($where) ? '' : ']]></add>
 	</operation>
-	
+
 	<!-- MLSearch function -->
 	<operation>	<!-- line 406 -->
 		<search position="before"><![CDATA[global $txt, $scripturl, $context, $user_info, $modSettings, $smcFunc]]></search>
@@ -1865,7 +1899,7 @@
 		array_merge($query_params, array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getModLogEntries function -->
 	<operation>	<!-- line 337 -->
 		<search position="before"><![CDATA[global $context, $scripturl, $txt, $smcFunc, $user_info]]></search>
@@ -1962,7 +1996,7 @@
 			array(
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- getXmlRecent function -->
 	<operation>	<!-- line 696 -->
 		<search position="before"><![CDATA[function getXmlRecent($xml_format)
@@ -2036,7 +2070,7 @@
 				'global_forumid' => -1,
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ReportMessage function -->
 	<operation>	<!-- line 3045 -->
 		<search position="before"><![CDATA[global $user_info, $language, $modSettings, $smcFunc]]></search>
@@ -2072,7 +2106,7 @@
 			array(
 				'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ApplyRules function -->
 	<operation>	<!-- line 3436 -->
 		<search position="before"><![CDATA[global $user_info, $smcFunc, $context, $options]]></search>
@@ -2117,7 +2151,7 @@
 				array(
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- Post2 function -->
 	<operation>	<!-- line 1212 -->
 		<search position="before"><![CDATA[global $user_info, $board_info, $options, $smcFunc]]></search>
@@ -2147,7 +2181,7 @@
 				array(
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- AnnouncementSelectMembergroup function -->
 	<operation>	<!-- line 2139 -->
 		<search position="before"><![CDATA[global $txt, $context, $topic, $board, $board_info, $smcFunc]]></search>
@@ -2165,7 +2199,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- AnnouncementSend function -->
 	<operation>	<!-- line 2215 -->
 		<search position="before"><![CDATA[global $language, $scripturl, $txt, $user_info, $sourcedir, $smcFunc]]></search>
@@ -2193,7 +2227,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- notifyMembersBoard function -->
 	<operation>	<!-- line 2337 -->
 		<search position="before"><![CDATA[global $modSettings, $sourcedir, $board, $smcFunc, $context]]></search>
@@ -2276,7 +2310,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- profileLoadGroups function -->
 	<operation>	<!-- line 2296 -->
 		<search position="before"><![CDATA[global $cur_profile, $txt, $context, $smcFunc, $user_settings]]></search>
@@ -2295,7 +2329,7 @@
 			'global_forumid' => -1,
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- groupMembership function -->
 	<operation>	<!-- line 3070 -->
 		<search position="before"><![CDATA[function groupMembership($memID)
@@ -2367,7 +2401,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- RecentPosts function -->
 	<operation>	<!-- line 81 -->
 		<search position="before"><![CDATA[global $txt, $scripturl, $user_info, $context, $modSettings, $sourcedir, $board, $smcFunc]]></search>
@@ -2441,7 +2475,7 @@
 				array_merge($query_parameters, array(
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- UnreadTopics function -->
 	<operation>	<!-- line 425 -->
 		<search position="before"><![CDATA[global $board, $txt, $scripturl, $sourcedir]]></search>
@@ -2521,7 +2555,7 @@
 		<add><![CDATA[// If admin requires registration to be redirected to the primary forum, do so now:
 	if (!empty($modSettings['subforum_settings_register_at_primary']) && $forumid != 0)
 		redirectExit($subforum_tree[0]['boardurl'] . '/index.php?action=register');
-	
+
 	]]></add>
 	</operation>
 	<operation>	<!-- line 117 -->
@@ -2570,7 +2604,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- StaffReport function -->
 	<operation>	<!-- line 668 -->
 		<search position="before"><![CDATA[global $sourcedir, $context, $txt, $smcFunc]]></search>
@@ -2633,7 +2667,7 @@
 
 		]]></add>
 	</operation>
-	
+
 	<!-- PlushSearch2 function -->
 	<operation>	<!-- line 254 -->
 		<search position="before"><![CDATA[global $scripturl, $modSettings, $sourcedir, $txt, $db_connection]]></search>
@@ -2679,7 +2713,7 @@
 
 	]]></add>
 	</operation>
-	
+
 	<!-- emailAdmins function -->
 	<operation>	<!-- line 409 -->
 		<search position="before"><![CDATA[global $smcFunc, $sourcedir, $language, $modSettings]]></search>
@@ -2783,7 +2817,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- reorderBoards function -->
 	<operation>	<!-- line 966 -->
 		<search position="replace"><![CDATA[getBoardTree();
@@ -2793,7 +2827,7 @@
 
 	// Set the board order for each category.]]></add>
 	</operation>
-	
+
 	<!-- getBoardTree function -->
 	<operation>	<!-- line 1032 -->
 		<search position="replace"><![CDATA[function getBoardTree()
@@ -2808,7 +2842,7 @@
 		<add><![CDATA[// Build the subforum tree array:
 	if ($forumid <> 0)
 		$subforum_tree = array($forumid => $subforum_tree[$forumid]);
-	
+
 	// Getting all the board and category information you'd ever wanted.
 	$reqid = (int) ($forumid == 0 ? $reqid : $forumid);
 
@@ -2832,7 +2866,7 @@
 		<search position="after"><![CDATA[if (!isset($cat_tree[$row['id_cat']]))]]></search>
 		<add><![CDATA[if (!isset($subforum_tree[$row['forumid']]))
 			$subforum_tree[$row['forumid']] = array('forumid' => (int) $row['forumid']);
-			
+
 		]]></add>
 	</operation>
 	<operation>	<!-- line 1060 -->
@@ -2860,7 +2894,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- getEventPoster function -->
 	<operation>	<!-- line 816 -->
 		<search position="before"><![CDATA[function getEventPoster($event_id)
@@ -2886,7 +2920,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- insertEvent function -->
 	<operation>	<!-- line 839 -->
 		<search position="before"><![CDATA[function insertEvent(&$eventOptions)
@@ -2902,7 +2936,7 @@
 		<search position="before"><![CDATA[$eventOptions['start_date'], $eventOptions['end_date'],]]></search>
 		<add><![CDATA[ $forumid,]]></add>
 	</operation>
-	
+
 	<!-- modifyEvent function -->
 	<operation>	<!-- line 887 -->
 		<search position="before"><![CDATA[function modifyEvent($event_id, &$eventOptions)
@@ -2920,7 +2954,7 @@
 			'forumid' => (int) $forumid,
 			'start_date' => $eventOptions['start_date'],]]></add>
 	</operation>
-	
+
 	<!-- removeEvent function -->
 	<operation>	<!-- line 927 -->
 		<search position="before"><![CDATA[function removeEvent($event_id)
@@ -2940,7 +2974,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- getEventProperties function -->
 	<operation>	<!-- line 944 -->
 		<search position="before"><![CDATA[function getEventProperties($event_id)
@@ -2971,56 +3005,6 @@
 	]]></add>
 	</operation>
 </file>
-<file name="$sourcedir/Subs-Db-mysql.php">
-	<!-- smf_db_query function -->
-	<operation>	<!-- line 224 -->
-		<search position="before"><![CDATA[function smf_db_query($identifier, $db_string, $db_values = array(), $connection = null]]></search>
-		<add><![CDATA[, $allowSubSelects = false]]></add>
-	</operation>
-	<operation>	<!-- line 368 -->
-		<search position="replace"><![CDATA[elseif (preg_match('~\([^)]*?select~s', $clean) != 0)]]></search>
-		<add><![CDATA[elseif (!$allowSubSelects && preg_match('~\([^)]*?select~s', $clean) != 0)]]></add>
-	</operation>
-	
-	<!-- SMF_DB_MySQLi::query function -->
-	<operation error="ignore">	<!-- line 986 -->
-		<search position="before"><![CDATA[public function query($identifier, $db_string, $db_values = array(), $connection = null]]></search>
-		<add><![CDATA[, $allowSubSelects = false]]></add>
-	</operation>
-	<operation error="ignore">	<!-- line 1157 -->
-		<search position="replace"><![CDATA[elseif (preg_match('~\([^)]*?select~s', $clean) != 0)]]></search>
-		<add><![CDATA[elseif (!$allowSubSelects && preg_match('~\([^)]*?select~s', $clean) != 0)]]></add>
-	</operation>
-</file>
-<file name="$sourcedir/Subs-Db-mysqli.php" error="skip">
-	<!-- smf_db_query function -->
-	<operation>	<!-- line 224 -->
-		<search position="before"><![CDATA[function smf_db_query($identifier, $db_string, $db_values = array(), $connection = null]]></search>
-		<add><![CDATA[, $allowSubSelects = false]]></add>
-	</operation>
-	<operation>	<!-- line 368 -->
-		<search position="replace"><![CDATA[elseif (preg_match('~\([^)]*?select~s', $clean) != 0)]]></search>
-		<add><![CDATA[elseif (!$allowSubSelects && preg_match('~\([^)]*?select~s', $clean) != 0)]]></add>
-	</operation>
-<file>
-<file name="$sourcedir/Subs-Db-postgresql.php">
-	<!-- smf_db_query function -->
-	<operation>	<!-- line 216 -->
-		<search position="before"><![CDATA[function smf_db_query($identifier, $db_string, $db_values = array(), $connection = null]]></search>
-		<add><![CDATA[, $allowSubSelects = false]]></add>
-	</operation>
-	<operation>	<!-- line 419 -->
-		<search position="after"><![CDATA[preg_match('~\([^)]*?select~s', $clean) != 0)]]></search>
-		<add><![CDATA[!$allowSubSelects && ]]></add>
-	</operation>
-</file>
-<file name="$sourcedir/Subs-Db-sqlite.php">
-	<!-- smf_db_query function -->
-	<operation>	<!-- line 216 -->
-		<search position="before"><![CDATA[function smf_db_query($identifier, $db_string, $db_values = array(), $connection = null]]></search>
-		<add><![CDATA[, $allowSubSelects = false]]></add>
-	</operation>
-</file>
 <file name="$sourcedir/Subs-Membergroups.php">
 	<!-- deleteMembergroups function -->
 	<operation>	<!-- line 151 -->
@@ -3043,7 +3027,7 @@
 		)
 	);]]></add>
 	</operation>
-	
+
 	<!-- removeMembersFromGroups function -->
 	<operation>	<!-- line 231 -->
 		<search position="before"><![CDATA[function removeMembersFromGroups($members, $groups = null, $permissionCheckDone = false)
@@ -3116,7 +3100,7 @@
 	$smcFunc['db_query']('', '
 		DELETE FROM {db_prefix}primary_membergroups]]></add>
 	</operation>
-	
+
 	<!-- addMembersToGroup function -->
 	<operation>	<!-- line 451 -->
 		<search position="before"><![CDATA[function addMembersToGroup($members, $group, $type = 'auto', $permissionCheckDone = false)
@@ -3235,7 +3219,7 @@
 		}
 	}]]></add>
 	</operation>
-	
+
 	<!-- listMembergroupMembers_Href function -->
 	<operation>	<!-- line 601 -->
 		<search position="before"><![CDATA[function listMembergroupMembers_Href(&$members, $membergroup, $limit = null)
@@ -3259,11 +3243,11 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getMembergroups function -->
 	<operation>	<!-- line 663 -->
 		<search position="before"><![CDATA[global $txt, $scripturl, $context, $settings, $smcFunc]]></search>
-		<add><![CDATA[, $forumid]]></add>
+		<add><![CDATA[, $forumid, $modSettings]]></add>
 	</operation>
 	<operation>	<!-- line 671 -->
 		<search position="replace"><![CDATA[WHERE min_posts ' . ($membergroup_type === 'post_count' ? '!=' : '=') . ' -1' . (allowedTo('admin_forum') ? '' : '
@@ -3293,7 +3277,10 @@
 					'forumid' => (int) $forumid,]]></add>
 	</operation>
 	<operation>	<!-- line 727 -->
-		<search position="replace"><![CDATA[INNER JOIN {db_prefix}members AS mem ON (mem.additional_groups != {string:blank_string}
+		<search position="replace"><![CDATA[$query = $smcFunc['db_query']('', '
+				SELECT mg.id_group, COUNT(*) AS num_members
+				FROM {db_prefix}membergroups AS mg
+					INNER JOIN {db_prefix}members AS mem ON (mem.additional_groups != {string:blank_string}
 						AND mem.id_group != mg.id_group
 						AND FIND_IN_SET(mg.id_group, mem.additional_groups) != 0)
 				WHERE mg.id_group IN ({array_int:group_list})
@@ -3303,7 +3290,15 @@
 					'blank_string' => '',
 				)
 			);]]></search>
-		<add><![CDATA[INNER JOIN (SELECT mem.additional_groups, pm.id_group
+		<add><![CDATA[// We need to disable query checks for this next operation:
+			if (isset($modSettings['disableQueryCheck']))
+				$tmp = $modSettings['disableQueryCheck'];
+			$modSettings['disableQueryCheck'] = true;
+
+			$query = $smcFunc['db_query']('', '
+				SELECT mg.id_group, COUNT(*) AS num_members
+				FROM {db_prefix}membergroups AS mg
+					INNER JOIN (SELECT mem.additional_groups, pm.id_group
 						FROM smf_members AS mem
 							LEFT JOIN smf_primary_membergroups pm ON (pm.id_member = mem.id_member AND pm.forumid = {int:forumid})
 						) AS pmem ON (pmem.additional_groups != {string:blank_string}
@@ -3315,10 +3310,20 @@
 					'group_list' => array_keys($groups),
 					'blank_string' => '',
 					'forumid' => (int) $forumid,
-				),
-				null /* connection */,
-				true /* allowSubSelects */
+				)
 			);]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[		}
+	}
+
+	// Apply manual sorting if the 'number of members' column is selected.
+]]></search>
+		<add><![CDATA[
+			// Restore query checks to previous status:
+			if (isset($tmp))
+				$modSettings['disableQueryCheck'] = $tmp;
+]]></add>
 	</operation>
 </file>
 <file name="$sourcedir/Subs-Members.php">
@@ -3341,7 +3346,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- registerMember function -->
 	<operation>	<!-- line 462 -->
 		<search position="before"><![CDATA[global $user_info, $options, $settings, $smcFunc]]></search>
@@ -3381,7 +3386,7 @@
 
 	]]></add>
 	</operation>
-	
+
 	<!-- membersAllowedTo function -->
 	<operation>	<!-- line 1072 -->
 		<search position="before"><![CDATA[function membersAllowedTo($permission, $board_id = null)
@@ -3403,7 +3408,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- list_getMembers function -->
 	<operation>	<!-- line 1204 -->
 		<search position="before"><![CDATA[function list_getMembers($start, $items_per_page, $sort, $where, $where_params = array(), $get_duplicates = false)
@@ -3512,7 +3517,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- sendNotifications function -->
 	<operation>	<!-- line 1533 -->
 		<search position="before"><![CDATA[global $modSettings, $sourcedir, $context, $smcFunc]]></search>
@@ -3534,7 +3539,7 @@
 		<add><![CDATA[
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- sendApprovalNotifications function -->
 	<operation>	<!-- line 2835 -->
 		<search position="before"><![CDATA[function sendApprovalNotifications(&$topicData)
@@ -3571,7 +3576,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- adminNotify function -->
 	<operation>	<!-- line 3091 -->
 		<search position="before"><![CDATA[global $txt, $modSettings, $language, $scripturl, $user_info, $context, $smcFunc]]></search>
@@ -3692,7 +3697,7 @@
 
 	]]></add>
 	</operation>
-	
+
 	<!-- writeLog function -->
 	<operation>	<!-- line 2577 -->
 		<search position="before"><![CDATA[global $user_info, $user_settings, $context, $modSettings, $settings, $topic, $board, $smcFunc, $sourcedir]]></search>
@@ -3714,7 +3719,7 @@
 		<add><![CDATA[$tmp = (empty($forumid) ? '' : $forumid);
 	$context['news_lines'] = explode("\n", str_replace("\r", '', trim(addslashes($modSettings['news' . $tmp]))));]]></add>
 	</operation>
-	
+
 	<!-- setupMenuContext function -->
 	<operation>	<!-- line 3905 -->
 		<search position="before"><![CDATA[global $context, $modSettings, $user_info, $txt, $scripturl]]></search>
@@ -3800,7 +3805,7 @@
 		array_merge($query_where_params, array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_recentTopics function -->
 	<operation>	<!-- line 415 -->
 		<search position="before"><![CDATA[function ssi_recentTopics($num_recent = 8, $exclude_boards = null, $include_boards = null, $output_method = 'echo')
@@ -3843,7 +3848,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_topBoards function -->
 	<operation>	<!-- line 585 -->
 		<search position="before"><![CDATA[function ssi_topBoards($num_top = 10, $output_method = 'echo')
@@ -3868,7 +3873,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_topTopics function -->
 	<operation>	<!-- line 639 -->
 		<search position="before"><![CDATA[function ssi_topTopics($type = 'replies', $num_topics = 10, $output_method = 'echo')
@@ -3917,7 +3922,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_fetchGroupMembers function -->
 	<operation>	<!-- line 822 -->
 		<search position="replace"><![CDATA[$query_where = '
@@ -3996,7 +4001,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_recentPoll function -->
 	<operation>	<!-- line 1048 -->
 		<search position="before"><![CDATA[function ssi_recentPoll($topPollInstead = false, $output_method = 'echo')
@@ -4023,7 +4028,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_showPoll function -->
 	<operation>	<!-- line 1178 -->
 		<search position="before"><![CDATA[function ssi_showPoll($topic = null, $output_method = 'echo')
@@ -4050,7 +4055,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_pollVote function -->
 	<operation>	<!-- line 1372 -->
 		<search position="before"><![CDATA[function ssi_pollVote()
@@ -4077,7 +4082,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_boardNews function -->
 	<operation>	<!-- line 1617 -->
 		<search position="before"><![CDATA[function ssi_boardNews($board = null, $limit = null, $start = null, $length = null, $output_method = 'echo')
@@ -4118,7 +4123,7 @@
 		array(
 			'forumid' => (int) $forumid,]]></add>
 	</operation>
-	
+
 	<!-- ssi_recentAttachments function -->
 	<operation>	<!-- line 1900 -->
 		<search position="before"><![CDATA[function ssi_recentAttachments($num_attachments = 10, $attachment_ext = array(), $output_method = 'echo')
@@ -4293,7 +4298,7 @@
 	}
 	echo ']]></add>
 	</operation>
-	
+
 	<!-- template_modify_category function -->
 	<operation>	<!-- line 113 -->
 		<search position="before"><![CDATA[function template_modify_category()
@@ -4374,7 +4379,7 @@
 			echo '
 								<option', $order['selected'] ? ' selected="selected"' : '', ' value="', $order['id'], '">', $order['name'], '</option>';]]></add>
 	</operation>
-	
+
 	<!-- template_confirm_category_delete function -->
 	<operation>	<!-- line 199 -->
 		<search position="replace"><![CDATA[echo '
@@ -4394,7 +4399,7 @@
 
 	foreach ($context['category_order'][$_POST['forumid']] as $cat)]]></add>
 	</operation>
-	
+
 	<!-- template_modify_board function -->
 	<operation>	<!-- line 253 -->
 		<search position="before"><![CDATA[function template_modify_board()
@@ -4462,7 +4467,7 @@
 	else
 		echo '
 						<input type="hidden" name="new_forum" value="', $_REQUEST['sub'], '" />';
-	
+
 	]]></add>
 	</operation>
 	<operation>	<!-- line 279 -->
@@ -4634,7 +4639,7 @@
 		<add><![CDATA[
 		hideAlias();]]></add>
 	</operation>
-	
+
 	<!-- template_confirm_board_delete function -->
 	<operation>	<!-- line 574 -->
 		<search position="replace"><![CDATA[function template_confirm_board_delete()
@@ -4765,7 +4770,7 @@
 	}
 	]]></add>
 	</operation>
-	
+
 	<!-- template_edit_group function -->
 	<operation>	<!-- line 161 -->
 		<search position="before"><![CDATA[function template_edit_group()
@@ -4958,7 +4963,7 @@
 	{
 		echo '
 		<div id="subforum' . $id . '"' . (!empty($id) ? ' style="display: none;"' : '') . '>';
-	
+
 		foreach ($subforum as $category)
 		{
 			echo '

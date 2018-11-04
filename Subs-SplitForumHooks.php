@@ -101,11 +101,6 @@ function SplitForum_PreLoad()
 	foreach ($subforum_tree as $subforum)
 		$urls[] = $subforum['boardurl'];
 	$modSettings['forum_alias_urls'] = implode(',', array_unique($urls));
-	
-	// Populate the "primary membergroups" table with necessary info if not flagged:
-	$postinstall = isset($_REQUEST['action']) && $_REQUEST['action'] == 'admin' && isset($_REQUEST['area']) && $_REQUEST['area'] == 'subforums' && isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'postinstall';
-	if (empty($modSettings['sfm_populated']) || $postinstall)
-		SplitForum_Populate();
 }
 
 function SplitForum_EzPortal_Init()
@@ -291,6 +286,11 @@ function SplitForum_Populate($subforums = false, $insert = true, $delete = false
 			);
 	}
 	
+	// We need to disable query checks for this next operation:
+	if (isset($modSettings['disableQueryCheck']))
+		$tmp = $modSettings['disableQueryCheck'];
+	$modSettings['disableQueryCheck'] = true;
+
 	// Are we inserting data?  If so, insert non-zero "id_group" for each member
 	// for each subforum ID, ignoring pre-existing entries in the table:
 	if ($insert && !isset($_REQUEST['sfm_no_insert']))
@@ -311,9 +311,10 @@ function SplitForum_Populate($subforums = false, $insert = true, $delete = false
 			);
 		}
 	}
-	
-	// Flag this operation as completed:
-	updateSettings(array('sfm_populated' => true));
+
+	// Restore query checks to previous status:
+	if (isset($tmp))
+		$modSettings['disableQueryCheck'] = $tmp;
 	
 	// Is this being called as an action?  If so, redirect to subforum management area:
 	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'sfm_populate')

@@ -1,4 +1,9 @@
-v2.0 - February 10th, 2018
+v2.0 Beta 2 - February 11th, 2018
+o Made several changes to the database installer to avoid "Hacking attempt" messages.
+o Made changes to permissions, membergroups and news code to get them functioning right.
+o Removed changes to database support functions, in favor to turning off query checks temporarily.
+
+v2.0 Beta 1 - February 10th, 2018
 o Thanks to [url=https://www.simplemachines.org/community/index.php?action=profile;u=478373]KSRandom[/url], control over user membergroups per subforum has been added!
 o Complete rewrite of the mod, now includes original line numbers and function names in proper order!
 o Modified registration agreement code to provide additional fallback situations.
